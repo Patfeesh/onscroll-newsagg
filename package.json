@@ -1,0 +1,23 @@
+{
+  "name": "onscroll-newsaggregator",
+  "version": "1.0.0",
+  "description": "Simple news aggregation website",
+  "main": "server.js",
+  "dependencies": {
+    "feedparser": "^0.19.2",
+    "mongoose": "^3.8.21",
+    "restify": "^2.8.4"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "angular",
+    "mongodb",
+    "restify"
+  ],
+  "author": "Patrick Hamilton",
+  "license": "ISC"
+}
