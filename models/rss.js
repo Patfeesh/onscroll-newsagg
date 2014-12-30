@@ -1,16 +1,16 @@
-var createpost = require('/createpost.js');
-var FeedParser = require('feedparser')
+var createpost = require('./createpost.js')
+    , FeedParser = require('feedparser')
     , request = require('request')
     , fs = require('fs');
 
 exports.articles = function getRSS() {
 
-    var req = []
-    req.push(request('http://feeds.skynews.com/feeds/rss/home.xml'))
-    req.push(request('http://feeds.bbci.co.uk/news/rss.xml?edition=int#'))
-    req.push(request('https://news.ycombinator.com/rss'))
+    var req = [];
+    req.push(request('http://feeds.skynews.com/feeds/rss/home.xml'));
+    req.push(request('http://feeds.bbci.co.uk/news/rss.xml?edition=int#'));
+    req.push(request('https://news.ycombinator.com/rss'));
     var feedparser = new FeedParser()
-        , artarray = []
+        , artarray = [];
 
     for (var i = 0; i < req.length; i++) {
         req[i].on('error', function (error) {
@@ -32,11 +32,11 @@ exports.articles = function getRSS() {
             var stream = this
                 , item
             while (item = stream.read()) {
-                artarray.push(newarticle(item));
+                artarray.push(createpost.newarticle(item));
             }
         });
     }
-    for (var i =0; i < artarray.length; i++){
+    for (i =0; i < artarray.length; i++){
             console.log(artarray[i])
     }
-}
+};
