@@ -1,6 +1,7 @@
-var mongoose = require('mongoose')
-var feedparser = require('feedparser')
-var restify = require('restify')
+var feedparser = require('feedparser');
+var restify = require('restify');
+var rss = require('../models/rss.js');
+var db = require('../models/db.js');
 
 var server = restify.createServer({ name: 'news-api' })
  
