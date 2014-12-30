@@ -8,9 +8,9 @@ exports.articles = function getRSS() {
     var req = [];
     req.push(request('http://feeds.skynews.com/feeds/rss/home.xml'));
     req.push(request('http://feeds.bbci.co.uk/news/rss.xml?edition=int#'));
-    req.push(request('https://news.ycombinator.com/rss'));
+    req.push(request('http://feeds.feedburner.com/showhn100points?format=xml'));
     var feedparser = new FeedParser()
-        , artarray = [];
+       // , artarray = [];
 
     for (var i = 0; i < req.length; i++) {
         req[i].on('error', function (error) {
@@ -32,9 +32,10 @@ exports.articles = function getRSS() {
             var stream = this
                 , item
             while (item = stream.read()) {
-                artarray.push(createpost.newarticle(item));
+                //artarray.push(createpost.newarticle(item));
+                console.log(item.title)
             }
         });
     }
-    return artarray;
+    //return artarray;
 };
