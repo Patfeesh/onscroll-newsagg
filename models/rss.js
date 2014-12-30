@@ -36,7 +36,5 @@ exports.articles = function getRSS() {
             }
         });
     }
-    for (i =0; i < artarray.length; i++){
-            console.log(artarray[i])
-    }
+    return artarray;
 };
