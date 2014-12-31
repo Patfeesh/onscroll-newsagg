@@ -1,7 +1,6 @@
 var feedparser = require('feedparser')
   , restify = require('restify')
-  , rss = require('./models/rss.js')
-  , db = require('./models/db.js');
+  , rss = require('./models/rss.js');
 
 var server = restify.createServer({ name: 'news-api' });
  
