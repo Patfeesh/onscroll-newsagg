@@ -15,3 +15,14 @@ angular.module('onscrollNewsaggApp')
       'Karma'
     ];
   });
+
+function DataController($scope, $http) {
+  $scope.items = []
+
+  $scope.getItems = function() {
+    $http({method : 'GET',url : 'http://localhost:9000/articles'})
+      .success(function(data, status) {
+        $scope.items = data;
+      })
+  }
+}
