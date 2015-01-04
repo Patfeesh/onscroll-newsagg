@@ -40,14 +40,14 @@ exports.newArticle = function createArticle(item, meta){
 };
 
 //Trim returned articles to 10 per source and save to articles collection
-exports.saveArticles = function saveArticles(postarray) {
+exports.saveArticles = function saveArticles(postarray,callback) {
     var newarray = [];
     newarray = postarray.slice(0, 10);
-    console.log(newarray.length);
 
     for (var i = 0; i < newarray.length; i++) {
         newarray[i].save(function (err) {
-            if (err) return console.error('Failed to save to DB: ' + err); // we should handle this
+            if (err) return callback(err);
         });
     }
+    return callback(null,'DB Saves all completed');
 }

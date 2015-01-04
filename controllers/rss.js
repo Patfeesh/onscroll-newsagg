@@ -1,11 +1,11 @@
 //Include required libraries
 var FeedParser = require('feedparser')
-    , req = require('request')
+    , request = require('request')
     , dbwork = require('../models/dbwork.js')
 
 //Retrieve articles from rss feed and parse into object model
-exports.getArticles = function getArticles(req, source){
-
+exports.getArticles = function getArticles(url, callback){
+    var req = request(url);
     //Optimal header parameters
     req.setMaxListeners(50);
     req.setHeader('user-agent', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1650.63 Safari/537.36');
@@ -15,7 +15,7 @@ exports.getArticles = function getArticles(req, source){
 
     //RSS stream connection error
     req.on('error', function (error) {
-        console.error('Could not connect to RSS stream ' + source + '. ' + error)
+        console.error('Could not connect to RSS stream ' + '. ' + error)
     });
 
     //Pass to feedparser if correct response
@@ -37,8 +37,9 @@ exports.getArticles = function getArticles(req, source){
             , meta = this.meta
             , item;
         while (item = stream.read()) {
-            postarray.push(createArticle(item, meta));
+            postarray.push(dbwork.newArticle(item, meta));
         }
+
     });
-    saveArticles(postarray);
+    return callback(null,postarray);
 }
