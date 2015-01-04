@@ -1,3 +1,4 @@
+//Include required libraries
 var mongoose = require('mongoose')
 
 //Mongoose DB connection
@@ -37,3 +38,16 @@ exports.newArticle = function createArticle(item, source){
         source: source
     });
 };
+
+//Trim returned articles to 10 per source and save to articles collection
+exports.savePosts = function savePosts(postarray) {
+    var newarray = [];
+    newarray = postarray.slice(0, 10);
+    console.log(newarray.length);
+
+    for (var i = 0; i < newarray.length; i++) {
+        newarray[i].save(function (err) {
+            if (err) return console.error('Failed to save to DB: ' + err); // we should handle this
+        });
+    }
+}
