@@ -30,17 +30,17 @@ var articleSchema = new Schema({
 var Article = mongoose.model('Article',articleSchema);
 
 // Article object constructor
-exports.newArticle = function createArticle(item, source){
+exports.newArticle = function createArticle(item, meta){
     new Article({
         title: item.title,
         link: item.link,
         pubdate: item.pubdate,
-        source: source
+        source: meta.title
     });
 };
 
 //Trim returned articles to 10 per source and save to articles collection
-exports.savePosts = function savePosts(postarray) {
+exports.saveArticles = function saveArticles(postarray) {
     var newarray = [];
     newarray = postarray.slice(0, 10);
     console.log(newarray.length);

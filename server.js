@@ -14,4 +14,7 @@ var server = restify.createServer({ name: 'onscroll-newsagg' });
 server.listen(8090, function () {
   console.log('%s listening at %s', server.name, server.url)
 });
+var sources = ["http://feeds.bbci.co.uk/news/rss.xml", "http://feeds.skynews.com/feeds/rss/home.xml", "https://news.ycombinator.com/rss"]
+
+async.eachSeries(sources, req, getArticles(req, saveArticles(callback())));
 

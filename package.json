@@ -1,0 +1,41 @@
+{
+  "name": "onscroll-newsagg",
+  "version": "1.0.0",
+  "description": "Simple node.js news aggregator",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "feedparser": "^0.19.2",
+    "request": "^2.51.0",
+    "mongoose": "^3.8.21",
+    "restify": "^2.8.4",
+    "angular": "^1.3.8",
+    "async": "^0.9.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Patfeesh/onscroll-newsagg.git"
+  },
+  "keywords": [
+    "node",
+    "angular",
+    "mongodb",
+    "mongoose",
+    "feedparser",
+    "rss",
+    "async"
+  ],
+  "author": "Patrick Hamilton @patfeesh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Patfeesh/onscroll-newsagg/issues"
+  },
+  "homepage": "https://github.com/Patfeesh/onscroll-newsagg"
+}

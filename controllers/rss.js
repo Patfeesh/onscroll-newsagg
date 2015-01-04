@@ -1,48 +1,7 @@
 //Include required libraries
 var FeedParser = require('feedparser')
     , req = require('request')
-    , mongoose = require('mongoose');
-
-//Mongoose DB connection
-mongoose.connect('mongodb://localhost/newsagg', function (err) {
-    if (err) return console.log('Error connecting to database: ' + err);
-});
-
-//Assign mongoose connection for reference
-var db = mongoose.connection;
-db.on('error', function (err) {
-    console.log('connection error', err);
-});
-db.once('open', function () {
-    console.log('connected.');
-});
-
-
-// Article object schema
-var Schema = mongoose.Schema;
-
-//Define article object members
-var articleSchema = new Schema({
-    title: { type: String }
-    , link: String
-    , pubdate: Date
-    , source: String
-});
-
-// Define Article model
-var Article = mongoose.model('Article',articleSchema);
-
-// Article object constructor
-function createArticle(item, source){
-    var newpost = new Article({
-        title: item.title,
-        link: item.link,
-        pubdate: item.pubdate,
-        source: source
-    });
-    return newpost;
-};
-
+    , dbwork = require('../models/dbwork.js')
 
 //Retrieve articles from rss feed and parse into object model
 exports.getArticles = function getArticles(req, source){
@@ -75,15 +34,11 @@ exports.getArticles = function getArticles(req, source){
     var postarray = [];
     feedparser.on('readable', function () {
         var stream = this
+            , meta = this.meta
             , item;
         while (item = stream.read()) {
-            postarray.push(createArticle(item, source));
+            postarray.push(createArticle(item, meta));
         }
     });
-    return postarray;
+    saveArticles(postarray);
 }
-
-Article.count({source: 'BBC News'}, function(err, c){
-    console.log('Count is ' + c);
-});
-Article.collection.drop();
