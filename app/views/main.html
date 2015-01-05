@@ -1,6 +1,6 @@
 <html ng-app="onscrollNewsaggApp">
 <div class="container">
-  <div ng-controller="DataController">
+  <div ng-controller="DataCtrl">
     <button type="button" ng-click="getItems()">Refresh</button>
     <ul>
       <a ng repeat="item in items" href="item.url"><li ng-repeat="item in items"> item.title </li></a>

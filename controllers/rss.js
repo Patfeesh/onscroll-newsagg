@@ -1,7 +1,7 @@
 //Include required libraries
 var FeedParser = require('feedparser')
     , request = require('request')
-    , dbwork = require('../models/dbwork.js')
+    , dbwork = require('../models/dbwork.js');
 
 //Retrieve articles from rss feed and parse into object model
 exports.getArticles = function getArticles(url, callback){
@@ -29,17 +29,15 @@ exports.getArticles = function getArticles(url, callback){
     feedparser.on('error', function (error) {
         console.error(error)
     });
-
-    //Convert readable events to object models and push to array whilst stream contains more data
     var postarray = [];
+    //Convert readable events to object models and push to array whilst stream contains more data
     feedparser.on('readable', function () {
-        var stream = this
-            , meta = this.meta
-            , item;
-        while (item = stream.read()) {
-            postarray.push(dbwork.newArticle(item, meta));
+        var stream = this;
+        var item;
+        while ((item = stream.read())) {
+            postarray.push(dbwork.newArticle(item));
         }
-
     });
-    return callback(null,postarray);
-}
+
+  callback(null,postarray);
+};

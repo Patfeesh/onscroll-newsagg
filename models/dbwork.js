@@ -27,27 +27,27 @@ var articleSchema = new Schema({
 });
 
 // Define Article model
-var Article = mongoose.model('Article',articleSchema);
+Article = mongoose.model('Article',articleSchema);
+exports.Article = Article;
 
 // Article object constructor
-exports.newArticle = function createArticle(item, meta){
-    new Article({
+exports.newArticle = function createArticle(item){
+    return new Article({
         title: item.title,
         link: item.link,
-        pubdate: item.pubdate,
-        source: meta.title
+        pubdate: item.pubdate
     });
 };
 
 //Trim returned articles to 10 per source and save to articles collection
 exports.saveArticles = function saveArticles(postarray,callback) {
     var newarray = [];
+    console.log(postarray.length);
     newarray = postarray.slice(0, 10);
-
     for (var i = 0; i < newarray.length; i++) {
         newarray[i].save(function (err) {
             if (err) return callback(err);
         });
     }
-    return callback(null,'DB Saves all completed');
+    callback(null,'DB Saves all completed');
 }
